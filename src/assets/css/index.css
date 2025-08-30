@@ -1,3 +1,21 @@
+/* Dark Theme Styles */
+.dark-theme {
+	background-color: #181818 !important;
+	color: #f1f1f1 !important;
+}
+
+.dark-theme .ipod,
+.dark-theme .top-container,
+.dark-theme .display-container,
+.dark-theme .menu {
+	background: linear-gradient(90deg, #232526, #414345) !important;
+	color: #f1f1f1 !important;
+}
+
+.dark-theme .controller {
+	background: #222 !important;
+	color: #f1f1f1 !important;
+}
 /* -----------------------------Google Fonts-------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Lobster&display=swap");

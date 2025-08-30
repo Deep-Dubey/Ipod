@@ -42,7 +42,7 @@ const Display = (props) => {
 				/>
 			)}
 
-			<Menu menu={menu} />
+			   <Menu menu={menu} onThemeToggle={props.onThemeToggle} />
 		</div>
 	);
 	//------------------------------------------------------------------------------------------

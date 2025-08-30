@@ -11,93 +11,103 @@ import songs from "../../assets/songs/songs";
 class App extends React.Component {
 	//-------------------------------------------------------------------------------------------
 	// Constructor for initialization of State and Ref
-	constructor() {
-		super();
-		// State
-		const song1 = new Audio(songs.music1);
-		const song2 = new Audio(songs.music2);
-		const song3 = new Audio(songs.music3);
-		this.state = {
-			// State Managing the Menu
-			menu: {
-				// Menu Options along with their Sub-Menu Options
-				options: [
-					{
-						music: ["all-songs", "artists", "albums"],
-					},
-					{
-						games: [],
-					},
-					{
-						coverflow: [],
-					},
-					{
-						settings: [
-							"change-wallpaper",
-							"change-orientation",
-							"change-theme",
-						],
-					},
-				],
-				// Making the Menu Visible
-				menuVisible: "no",
-				musicVisible: "no",
-				settingsVisible: "no",
-				// Menu Options Index for traversal in Options and Sub Options
-				optionsIndex: 0,
-				musicIndex: 0,
-				settingsIndex: 0,
-				// used for Main Page Rendering like songs,artists,albums
-				pageRender: "no",
-			},
-			// State Managing the Screen Display
-			screen: {
-				// List of wallpapers, Pages in Background to Render
-				wallpaper: [
-					// wallpapers
-					images.wallpaper1,
-					images.wallpaper2,
-					images.wallpaper3,
-					images.wallpaper4,
-					images.wallpaper5,
-					// coverflow
-					images.coverflow,
-					// games
-					images.games,
-					// all songs
-					images.allsongs,
-					// artists
-					images.artists,
-					// albums
-					images.albums,
-				],
-				// Wallpaper index for traversal in Wallpaper Array to access wallpaper
-				wallpaperIndex: 0,
-				// Wallpaper index for traversal in Wallpaper Array for every Screen
-				screenIndex: 0,
-			},
-			// State Managing the Mouse Click CSS Effect
-			mouse: {
-				innerCircle: "",
-			},
-			// State Managing the Songs
-			songsList: {
-				songs: [song1, song2, song3],
-				thumbnails: [images.song1Img, images.song2Img, images.song3Img],
-				songIndex: 0,
-				name: ["Stay", "Deserve You", "Yummy"],
-				isPlaying: false,
-			},
-			// State Managing the Themes
-			theme: {
-				themeList: ["Classic", "Dark"],
-				themeIndex: 0,
-			},
-		};
-		// Reference to access the Component
-		this.controllerRef = React.createRef();
-		this.progressRef = React.createRef();
-	}
+	   constructor() {
+		   super();
+		   // State
+		   const song1 = new Audio(songs.music1);
+		   const song2 = new Audio(songs.music2);
+		   const song3 = new Audio(songs.music3);
+		   this.state = {
+			   // State Managing the Menu
+			   menu: {
+				   // Menu Options along with their Sub-Menu Options
+				   options: [
+					   {
+						   music: ["all-songs", "artists", "albums"],
+					   },
+					   {
+						   games: [],
+					   },
+					   {
+						   coverflow: [],
+					   },
+					   {
+						   settings: [
+							   "change-wallpaper",
+							   "change-orientation",
+							   "change-theme",
+						   ],
+					   },
+				   ],
+				   // Making the Menu Visible
+				   menuVisible: "no",
+				   musicVisible: "no",
+				   settingsVisible: "no",
+				   // Menu Options Index for traversal in Options and Sub Options
+				   optionsIndex: 0,
+				   musicIndex: 0,
+				   settingsIndex: 0,
+				   // used for Main Page Rendering like songs,artists,albums
+				   pageRender: "no",
+			   },
+			   // State Managing the Screen Display
+			   screen: {
+				   // List of wallpapers, Pages in Background to Render
+				   wallpaper: [
+					   // wallpapers
+					   images.wallpaper1,
+					   images.wallpaper2,
+					   images.wallpaper3,
+					   images.wallpaper4,
+					   images.wallpaper5,
+					   // coverflow
+					   images.coverflow,
+					   // games
+					   images.games,
+					   // all songs
+					   images.allsongs,
+					   // artists
+					   images.artists,
+					   // albums
+					   images.albums,
+				   ],
+				   // Wallpaper index for traversal in Wallpaper Array to access wallpaper
+				   wallpaperIndex: 0,
+				   // Wallpaper index for traversal in Wallpaper Array for every Screen
+				   screenIndex: 0,
+			   },
+			   // State Managing the Mouse Click CSS Effect
+			   mouse: {
+				   innerCircle: "",
+			   },
+			   // State Managing the Songs
+			   songsList: {
+				   songs: [song1, song2, song3],
+				   thumbnails: [images.song1Img, images.song2Img, images.song3Img],
+				   songIndex: 0,
+				   name: ["Stay", "Deserve You", "Yummy"],
+				   isPlaying: false,
+			   },
+			   // State Managing the Themes
+			   theme: {
+				   themeList: ["Classic", "Dark"],
+				   themeIndex: 0,
+			   },
+		   };
+		   // Reference to access the Component
+		   this.controllerRef = React.createRef();
+		   this.progressRef = React.createRef();
+		   // Bind theme toggle
+		   this.toggleTheme = this.toggleTheme.bind(this);
+	   }
+
+	   //-------------------------------------------------------------------------------------------
+	   // Theme toggle handler
+	   toggleTheme() {
+		   const { theme } = this.state;
+		   const nextIndex = (theme.themeIndex + 1) % theme.themeList.length;
+		   this.setState({ theme: { ...theme, themeIndex: nextIndex } });
+	   }
 	//-------------------------------------------------------------------------------------------
 	// Functionality to choose the menu to display and handle the Menu Clicks
 	isMenuVisible = (menu, screen) => {
@@ -423,27 +433,28 @@ class App extends React.Component {
 		//------------------------------------------------------------------------------------------
 		return (
 			<div className="App">
-				<Ipod
-					screen={screen}
-					menu={menu}
-					mouse={mouse}
-					songsList={songsList}
-					theme={theme}
-					isMenuVisible={this.isMenuVisible}
-					addClass={this.addClass}
-					removeClass={this.removeClass}
-					tap={this.tap}
-					rotate={this.rotate}
-					play={this.play}
-					nextSong={this.nextSong}
-					prevSong={this.prevSong}
-					updateProgress={this.updateProgress}
-					controllerRef={this.controllerRef}
-					progressRef={this.progressRef}
-				/>
-				<Helmet>
-					<style>{`body { ${styling()} }`}</style>
-				</Helmet>
+				   <Ipod
+					   screen={screen}
+					   menu={menu}
+					   mouse={mouse}
+					   songsList={songsList}
+					   theme={theme}
+					   isMenuVisible={this.isMenuVisible}
+					   addClass={this.addClass}
+					   removeClass={this.removeClass}
+					   tap={this.tap}
+					   rotate={this.rotate}
+					   play={this.play}
+					   nextSong={this.nextSong}
+					   prevSong={this.prevSong}
+					   updateProgress={this.updateProgress}
+					   controllerRef={this.controllerRef}
+					   progressRef={this.progressRef}
+					   onThemeToggle={this.toggleTheme}
+				   />
+				   <Helmet>
+					   <body className={theme.themeIndex === 1 ? 'dark-theme' : ''} />
+				   </Helmet>
 			</div>
 		);
 		//------------------------------------------------------------------------------------------

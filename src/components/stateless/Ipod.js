@@ -23,7 +23,8 @@ const Ipod = (props) => {
 		updateProgress,
 		progressRef,
 		theme,
-	} = props;
+		onThemeToggle,
+		} = props;
 	//------------------------------------------------------------------------------------------
 	// Changing the Ipod Bottom Container Theme Color
 	const themeBottomContainer = () => {
@@ -72,25 +73,26 @@ const Ipod = (props) => {
 	//------------------------------------------------------------------------------------------
 	return (
 		<div className="ipod" style={themeIpod()}>
-			<div
-				className="top-container"
-				style={themeTopContainer()}
-				onMouseUp={(e) => {
-					e.stopPropagation();
-					removeClass("inner-circle", "down");
-					return;
-				}}
-			>
-				<div className="display-container" style={themeDisplayContainer()}>
-					<Display
-						menu={menu}
-						screen={screen}
-						songsList={songsList}
-						theme={theme}
-						updateProgress={updateProgress}
-						progressRef={progressRef}
-					/>
-				</div>
+			   <div
+				   className="top-container"
+				   style={themeTopContainer()}
+				   onMouseUp={(e) => {
+					   e.stopPropagation();
+					   removeClass("inner-circle", "down");
+					   return;
+				   }}
+			   >
+					   <div className="display-container" style={themeDisplayContainer()}>
+						   <Display
+							   menu={menu}
+							   screen={screen}
+							   songsList={songsList}
+							   theme={theme}
+							   updateProgress={updateProgress}
+							   progressRef={progressRef}
+							   onThemeToggle={onThemeToggle}
+						   />
+					   </div>
 			</div>
 			<div className="bottom-container" style={themeBottomContainer()}>
 				<Controller

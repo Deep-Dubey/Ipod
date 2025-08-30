@@ -4,7 +4,7 @@ import React from "react";
 const Menu = (props) => {
 	//------------------------------------------------------------------------------------------
 	// Unpacking the Props
-	const { menu } = props;
+	const { menu, onThemeToggle } = props;
 	const {
 		optionsIndex,
 		musicIndex,
@@ -33,12 +33,12 @@ const Menu = (props) => {
 		const val = musicArray[musicIndex];
 		value = val;
 	}
-	if (settingsVisible === "yes") {
-		show = "settings";
-		settingsArray = options[optionsIndex].settings;
-		const val = settingsArray[settingsIndex];
-		value = val;
-	}
+	   if (settingsVisible === "yes") {
+		   show = "settings";
+		   settingsArray = options[optionsIndex].settings;
+		   const val = settingsArray[settingsIndex];
+		   value = val;
+	   }
 	//------------------------------------------------------------------------------------------
 	// Used in JSX Rendering
 	const divStyling = (item) => {
@@ -85,18 +85,23 @@ const Menu = (props) => {
 		));
 	}
 	// Settings Menu
-	else if (show === "settings") {
-		RenderMenu = settingsArray.map((item) => (
-			<div className={item} style={divStyling(item)} id="options">
-				<p style={styles.text}>{item.replace("-", " ")}</p>
-				<img
-					src="https://cdn-icons-png.flaticon.com/512/81/81068.png"
-					alt="select"
-					style={imgStyling(item)}
-				/>
-			</div>
-		));
-	}
+	   else if (show === "settings") {
+		   RenderMenu = settingsArray.map((item) => (
+			   <div className={item} style={divStyling(item)} id="options">
+				   <p style={styles.text}>{item.replace("-", " ")}</p>
+				   <img
+					   src="https://cdn-icons-png.flaticon.com/512/81/81068.png"
+					   alt="select"
+					   style={imgStyling(item)}
+				   />
+				   {item === "change-theme" && (
+					   <button style={{marginLeft:10, background:'none', border:'none', cursor:'pointer'}} onClick={onThemeToggle} title="Change Theme">
+						   <span role="img" aria-label="theme">🎨</span>
+					   </button>
+				   )}
+			   </div>
+		   ));
+	   }
 	//------------------------------------------------------------------------------------------
 	// Rendering the Menu as a whole
 	return (
